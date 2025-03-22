@@ -11,7 +11,6 @@ const lightbox = new SimpleLightbox('.gallery a', {
 });
 
 export function createMarkup(response) {
-gallery.innerHTML = "";
 
 const markup = response.hits
     .map(({webformatURL, largeImageURL, tags, likes, views, comments, downloads}) => 

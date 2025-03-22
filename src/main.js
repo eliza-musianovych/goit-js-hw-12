@@ -11,6 +11,8 @@ const loaderMore = document.querySelector(".more")
 
 let page = 1;
 let keyword = "";
+const limit = 15;
+let totalPages = 0;
 
 const btnMoreShow = () => btnMore.style.display = `block`;
 const btnMoreHide = () => btnMore.style.display = `none`;
@@ -36,6 +38,8 @@ async function reserch(event) {
 
     try {
         const response = await fetchData(keyword, page);
+        totalPages = Math.ceil(response.totalHits / limit);
+          
         if (response.hits.length === 0) {
             iziToast.error({
               message: "Sorry, there are no images matching your search query. Please try again!",
@@ -49,11 +53,18 @@ async function reserch(event) {
             return;
         }
         createMarkup(response);
-
+    
         page += 1;
-        if (page > 1) {
+
+        if (page > totalPages) {
+            btnMoreHide();
+            return iziToast.info({
+              position: "topRight",
+              message: "We're sorry, but you've reached the end of search results."
+          })
+        } else {
             btnMoreShow();
-        }
+          }
     } catch (error) {
         iziToast.error({
               message: "Sorry, there are no images matching your search query. Please try again!",
@@ -66,6 +77,7 @@ async function reserch(event) {
     } finally {
         loader.style.display = `none`;
     };
+
 };
 
 btnMore.addEventListener("click", showMore);
@@ -74,16 +86,35 @@ async function showMore() {
     btnMoreHide();
     loaderMore.style.display = `block`;
 
-
     try {
     const response = await fetchData(keyword, page);
-    
+    totalPages = Math.ceil(response.totalHits / limit);
+
         createMarkup(response);
 
         page += 1;
-        if (page > 1) {
-            btnMore.style.display = `block`;
-        }
+        scrollAfterLoad();
+
+        function scrollAfterLoad() {
+            const card = document.querySelector(".gallery-item"); 
+            if (card) {
+              const galleryItemHeight = card.getBoundingClientRect().height;
+              const scrollHeight = galleryItemHeight * 2;
+              window.scrollBy({
+                top: scrollHeight,
+                behavior: "smooth",
+              });
+            }
+          }          
+        if (page > totalPages) {
+            btnMoreHide();
+            return iziToast.info({
+              position: "topRight",
+              message: "We're sorry, but you've reached the end of search results."
+            });
+          } else {
+            btnMoreShow();
+          }
     } catch (error) {
         iziToast.error({
               message: "Sorry, there are no images matching your search query. Please try again!",
@@ -95,6 +126,7 @@ async function showMore() {
             })
     } finally {
         loaderMore.style.display = `none`;
-        btnMoreShow();
     };
-}
+};
+
+ 

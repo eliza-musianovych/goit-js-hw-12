@@ -17,6 +17,6 @@ const parametrs = new URLSearchParams({
     per_page: 15,
 });
 
-const response = await axios.get(`${URL}?${parametrs}`)
+const response = await axios.get(`${URL}?${parametrs}`);
 return response.data
 }
