@@ -1,7 +1,7 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 import { fetchData } from "./js/pixabay-api";
-import { createMarkup } from "./js/render-function";
+import { createMarkup } from "./js/render-functions";
 
 const form = document.querySelector("form");
 const keywordInput = document.querySelector("input");
