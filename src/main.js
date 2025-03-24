@@ -9,7 +9,6 @@ const btnMore = document.querySelector(".button-more");
 const loader = document.querySelector(".loader");
 const loaderMore = document.querySelector(".more")
 
-let page = 1;
 let keyword = "";
 const limit = 15;
 let totalPages = 0;
@@ -18,6 +17,7 @@ const btnMoreShow = () => btnMore.style.display = `block`;
 const btnMoreHide = () => btnMore.style.display = `none`;
 
 form.addEventListener("submit", reserch);
+let page = 1;
 
 async function reserch(event) {
     event.preventDefault();
