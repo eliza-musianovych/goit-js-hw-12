@@ -12,6 +12,7 @@ const loaderMore = document.querySelector(".more")
 let keyword = "";
 const limit = 15;
 let totalPages = 0;
+let page;
 
 const btnMoreShow = () => btnMore.style.display = `block`;
 const btnMoreHide = () => btnMore.style.display = `none`;
@@ -21,6 +22,7 @@ page = 1;
 
 async function reserch(event) {
     event.preventDefault();
+    page = 1;
     
     document.querySelector(".gallery").innerHTML = "";
 
