@@ -17,7 +17,7 @@ const btnMoreShow = () => btnMore.style.display = `block`;
 const btnMoreHide = () => btnMore.style.display = `none`;
 
 form.addEventListener("submit", reserch);
-let page = 1;
+page = 1;
 
 async function reserch(event) {
     event.preventDefault();
